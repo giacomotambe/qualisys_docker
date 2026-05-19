@@ -1,0 +1,16 @@
+services:
+
+  qualisys:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: qualisys_humble
+    stdin_open: true
+    tty: true
+    network_mode: host
+    environment:
+      - ROS_DOMAIN_ID=42
+    volumes:
+      - ./config/qualisys_driver_params.yaml:/home/ros/mocap_ws/src/mocap4ros2_qualisys/qualisys_driver/config/qualisys_driver_params.yaml:ro
+    command: bash
+    restart: unless-stopped
