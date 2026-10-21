@@ -17,7 +17,12 @@ RUN useradd -m -s /bin/bash -u 1000 ros
 
 # Crea workspace e clona il repo con i submodule
 WORKDIR /home/ros/mocap_ws/src
-RUN git clone --recursive https://github.com/CentroEPiaggio/mocap4ros2_qualisys.git
+RUN git clone --recursive https://github.com/CentroEPiaggio/mocap4ros2_qualisys.git && \
+    git -C mocap4ros2_qualisys checkout 05dcf0b
+
+# Patch: streaming di tutti i frame di QTM invece del polling a 10 Hz
+COPY patches/qualisys_driver_streaming.patch /tmp/
+RUN git -C mocap4ros2_qualisys apply /tmp/qualisys_driver_streaming.patch
 
 # Importa dipendenze aggiuntive tramite vcs
 RUN vcs import < mocap4ros2_qualisys/dependency_repos.repos || true

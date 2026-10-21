@@ -12,5 +12,8 @@ services:
       - ROS_DOMAIN_ID=42
     volumes:
       - ./config/qualisys_driver_params.yaml:/home/ros/mocap_ws/src/mocap4ros2_qualisys/qualisys_driver/config/qualisys_driver_params.yaml:ro
+      - ./bags:/home/ros/bags
+      - ./scripts:/home/ros/scripts:ro
+      - /etc/localtime:/etc/localtime:ro
     command: bash
     restart: unless-stopped
