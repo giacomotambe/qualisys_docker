@@ -32,13 +32,19 @@ class RigidBodyFilter(Node):
 def main():
     body_name = sys.argv[1] if len(sys.argv) > 1 else 'traquad'
     rclpy.init()
-    node = RigidBodyFilter(body_name)
+    node = None
     try:
+        node = RigidBodyFilter(body_name)
         rclpy.spin(node)
     except (KeyboardInterrupt, ExternalShutdownException):
         pass
+    except Exception:
+        # Interrotto durante l'avvio: il contesto è già chiuso
+        if rclpy.ok():
+            raise
     finally:
-        node.destroy_node()
+        if node is not None:
+            node.destroy_node()
         rclpy.try_shutdown()
 
 

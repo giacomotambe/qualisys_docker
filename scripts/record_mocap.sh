@@ -33,7 +33,7 @@ trap 'kill -INT $FILTER_PID 2>/dev/null; wait $FILTER_PID 2>/dev/null' EXIT
 
 # Aspetta che arrivi almeno un messaggio del rigid body
 echo "In attesa di dati da '$BODY'..."
-if ! timeout 10 ros2 topic echo --once "/$BODY/pose" > /dev/null; then
+if ! timeout 10 ros2 topic echo --once "/$BODY/pose" geometry_msgs/msg/PoseStamped > /dev/null; then
     echo "Nessun dato da '$BODY' in 10 s: controlla il nome del 6DOF body in QTM"
     exit 1
 fi
