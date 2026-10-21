@@ -47,7 +47,7 @@ timeout 3 bash -c 'echo > /dev/tcp/192.168.254.1/22222' && echo open
 
 ## Configuration
 
-Edit `config/qualisys_driver_params.yaml` to set the IP address (`host_name`) of the Qualisys server, along with the node's QoS parameters. The driver reads the port from the `port` parameter (default `22222`).
+Edit `config/qualisys_driver_params.yaml` to set the IP address (`host_name`) and port (`port`) of the Qualisys server, along with the node's QoS parameters. The file is mounted into the container, so changes only need a driver restart, not a rebuild.
 
 In QTM, the robot must be defined as a 6DOF body and real-time streaming must be enabled. The rigid body names published by the driver are the 6DOF body names in QTM (case-sensitive).
 
